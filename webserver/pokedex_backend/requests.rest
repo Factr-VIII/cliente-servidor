@@ -8,7 +8,7 @@ POST http://localhost:3000/pokemon
 Content-Type: application/json
 
 {
-    "pokemon":"Bulbasour"
+    "pokemon":"Bulbas"
 }
 
 ###
@@ -16,7 +16,7 @@ PUT  http://localhost:3000/pokemon/152
 Content-Type: application/json
 
 {
-    "pokemon":"Pikachu"
+    "pokemon":"Picachu"
 }
 
 ###

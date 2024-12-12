@@ -9,8 +9,8 @@ const getAll = async (req=request,res=response) => {
     const pokemons = await conn.query(pokemonQueries.getAll)
     res.send(pokemons)
 
-    } catch(error){
-        res.status(500).send(error)
+    } catch(err){
+        res.status(500).send(err)
     } finally{
       if(conn) conn.end()
     }
@@ -36,8 +36,8 @@ const getByID = async (req= request, res=response)=>{
 
         res.send(pokemon)
     
-        } catch(error){
-            res.status(500).send(error)
+        } catch(err){
+            res.status(500).send(err)
         } finally{
           if(conn) conn.end()
         }
@@ -114,7 +114,6 @@ const updatePokemon = async (req=request, res=response) =>{
           if(conn) conn.end()
         }
 
-
 }
 
 const deletePokemon = async (req=request, res=response) =>{
@@ -149,6 +148,22 @@ const deletePokemon = async (req=request, res=response) =>{
         }
 }
 
+    const get3RandomPokemons = async (req, res) => {
+        let conn;
+        try{
+            conn = await pool.getConnection();
+            const pokemons = await conn.query('SELECT * FROM pokemons ORDER BY RAND() LIMIT 3');
+            res.status(200).send(pokemons);
+        }
+        catch(error){
+            res.status(500).send(error);
+            return;
+        }
+        finally{
+            if (conn) conn.end();
+        }
+
+    }
 
 module.exports = {
     getAll,
@@ -156,4 +171,5 @@ module.exports = {
     addPokemon,
     updatePokemon,
     deletePokemon,
+    get3RandomPokemons
 }
